@@ -1,0 +1,2 @@
+export const ADD_STARSHIP = 'ADD_STARSHIP';
+export const UPDATE_STARSHIP = 'UPDATE_STARSHIP';
