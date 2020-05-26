@@ -1,14 +1,16 @@
 import {
   ADD_STARSHIP,
   UPDATE_STARSHIP,
+  REMOVE_STARSHIP,
 } from './constants';
 
-export const addStarship = ({ name, count, price }) => ({
+export const addStarship = ({ name, count, unitPrice }) => ({
   type: ADD_STARSHIP,
   payload: {
     name,
     count,
-    price,
+    unitPrice,
+    totalPrice: unitPrice * count
   },
 });
 
@@ -20,3 +22,11 @@ export const updateStarship = ({ name, count }) => ({
     count,
   },
 });
+
+export const removeStarship = ({ name }) => ({
+  type: REMOVE_STARSHIP,
+  payload: {
+    name,
+  },
+});
+

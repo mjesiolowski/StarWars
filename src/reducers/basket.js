@@ -1,4 +1,4 @@
-import { ADD_STARSHIP, UPDATE_STARSHIP } from '../actions';
+import { ADD_STARSHIP, UPDATE_STARSHIP, REMOVE_STARSHIP } from '../actions';
 
 
 export const basketReducer = (state = [], action) => {
@@ -8,16 +8,22 @@ export const basketReducer = (state = [], action) => {
         ...state,
         action.payload,
       ];
+
     case UPDATE_STARSHIP:
       return state.map((starship) => {
         if (starship.name === action.payload.name) {
+          const updatedCount = starship.count + action.payload.count
           return {
             ...starship,
-            count: starship.count + action.payload.count,
+            count: updatedCount,
+            totalPrice: updatedCount * starship.unitPrice
           };
         }
         return starship;
       });
+
+    case REMOVE_STARSHIP:
+      return state.filter(starship => starship.name === action.payload.name)
 
     default:
       return state;

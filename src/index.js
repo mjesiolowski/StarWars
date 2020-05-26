@@ -13,8 +13,8 @@ import App from './component/App';
 const store = configureStore();
 console.log(store.getState());
 store.subscribe(() => console.log(store.getState()));
-store.dispatch(addStarship({ name: 'test', count: 10, price: 1000 }));
-store.dispatch(updateStarship({ name: 'test', count: 6, price: 2000 }));
+store.dispatch(addStarship({ name: 'test', count: 10, unitPrice: 1000 }));
+store.dispatch(updateStarship({ name: 'test', count: 6 }));
 
 const httpLink = createHttpLink({
   uri: 'https://swapi.apis.guru',
