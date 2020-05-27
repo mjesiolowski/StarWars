@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
+import {
+  CardElement,
+  WrapperDivElement,
+  FormElement,
+  InputElement
+} from '../../styles';
 
-const BorderedDiv = styled.div`
-border: 2px solid black;
-`
 
 export const Starship = ({
   name,
@@ -43,28 +46,28 @@ export const Starship = ({
   }
 
   return (
-    <BorderedDiv>
-      <h3>name: {name}</h3>
-      <h3>manufacturers: {manufacturers}</h3>
-      <h3>cost: {isStarshipAvailable ? costInCredits : `not available`}</h3>
+    <CardElement>
+      <WrapperDivElement>
+        <h3>name: {name}</h3>
+        <h3>manufacturers: {manufacturers}</h3>
+        <h3>cost: {isStarshipAvailable ? costInCredits : `not available`}</h3>
+      </WrapperDivElement>
 
       {isStarshipAvailable ?
-        <>
-          <form>
-            <label>Add to basket</label>
-            <input type="number" value={starshipsToAddCount} onChange={(e) => handleStarshipInput(e, 'adding')} />
-            <button onClick={handleAddToBasketButton}>Add to your basket</button>
-          </form>
+        <WrapperDivElement>
+          <FormElement >
+            <InputElement type="number" value={starshipsToAddCount} onChange={(e) => handleStarshipInput(e, 'adding')} />
+            <button onClick={handleAddToBasketButton}>Add to basket</button>
+          </FormElement>
 
-          <form>
-            <label>Remove from basket</label>
-            <input type="number" value={starshipsToRemoveCount} onChange={(e) => handleStarshipInput(e, 'removing')} />
-            <button>Remove from your basket</button>
-          </form>
-        </>
+          <FormElement >
+            <InputElement type="number" value={starshipsToRemoveCount} onChange={(e) => handleStarshipInput(e, 'removing')} />
+            <button>Remove from basket</button>
+          </FormElement>
+        </WrapperDivElement>
         : null
       }
 
-    </BorderedDiv>
+    </CardElement>
   )
 };

@@ -5,7 +5,11 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ContainerElement, GlobalStyleElement } from './styles';
+import {
+  GlobalStyleElement,
+  ContainerElement,
+  HeaderElement,
+} from './styles';
 import configureStore from './store/configureStore';
 import { addStarship, updateStarship } from './actions';
 import { App } from './components';
@@ -29,7 +33,7 @@ const jsx = (
     <Provider store={store}>
       <ContainerElement>
         <GlobalStyleElement />
-        <h1>Star Wars</h1>
+        <HeaderElement>Star Wars</HeaderElement>
         <App />
       </ContainerElement>
     </Provider>

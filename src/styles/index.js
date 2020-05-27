@@ -1,1 +1,1 @@
-export { ContainerElement, GlobalStyleElement } from './Container';
+export * from './styles'
