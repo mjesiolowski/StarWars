@@ -1,1 +1,1 @@
-export { Starship } from './Starship';
+export { default as Starship } from './connect';

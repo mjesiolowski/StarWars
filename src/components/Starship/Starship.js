@@ -5,11 +5,21 @@ const BorderedDiv = styled.div`
 border: 2px solid black;
 `
 
-export const Starship = ({ name, manufacturers, costInCredits }) => {
-  const [addStarshipInput, setAddStarshipInput] = useState(1)
-  const [removeStarshipInput, setRemoveStarshipInput] = useState(1)
+export const Starship = ({
+  name,
+  manufacturers,
+  costInCredits,
+  addStarship,
+  allStarshipsInBasket
+}) => {
+  const [starshipsToAddCount, setStarshipsToAddCount] = useState(1)
+  const [starshipsToRemoveCount, setStarshipsToRemoveCount] = useState(1)
 
   const isStarshipAvailable = Boolean(costInCredits)
+  const isStarshipInBasket = _.compose(
+    Boolean,
+    _.find({ name })
+  )
 
   const handleStarshipInput = (e, action) => {
     const value = e.target.value
@@ -18,12 +28,20 @@ export const Starship = ({ name, manufacturers, costInCredits }) => {
     }
 
     else if (action === 'adding') {
-      setAddStarshipInput(value)
+      setStarshipsToAddCount(value)
     }
 
     else if (action === 'removing') {
-      setRemoveStarshipInput(value)
+      setStarshipsToRemoveCount(value)
     }
+  }
+
+  const handleAddToBasketButton = (e) => {
+    e.preventDefault()
+    if (isStarshipInBasket(allStarshipsInBasket)) {
+      return console.log('in the basket')
+    }
+    addStarship({ name, count: starshipsToAddCount, unitPrice: costInCredits })
   }
 
   return (
@@ -36,13 +54,13 @@ export const Starship = ({ name, manufacturers, costInCredits }) => {
         <>
           <form>
             <label>Add to basket</label>
-            <input type="number" value={addStarshipInput} onChange={(e) => handleStarshipInput(e, 'adding')} />
-            <button>Add to your basket</button>
+            <input type="number" value={starshipsToAddCount} onChange={(e) => handleStarshipInput(e, 'adding')} />
+            <button onClick={handleAddToBasketButton}>Add to your basket</button>
           </form>
 
           <form>
             <label>Remove from basket</label>
-            <input type="number" value={removeStarshipInput} onChange={(e) => handleStarshipInput(e, 'removing')} />
+            <input type="number" value={starshipsToRemoveCount} onChange={(e) => handleStarshipInput(e, 'removing')} />
             <button>Remove from your basket</button>
           </form>
         </>
