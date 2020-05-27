@@ -8,13 +8,13 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ContainerElement, GlobalStyleElement } from './styles';
 import configureStore from './store/configureStore';
 import { addStarship, updateStarship } from './actions';
-import App from './component/App';
+import { App } from './components';
 
 const store = configureStore();
 console.log(store.getState());
 store.subscribe(() => console.log(store.getState()));
 store.dispatch(addStarship({ name: 'test', count: 10, unitPrice: 1000 }));
-store.dispatch(addStarship({ name: 'test2', count: 6 }));
+store.dispatch(addStarship({ name: 'test2', count: 6, unitPrice: 2000 }));
 
 const httpLink = createHttpLink({
   uri: 'https://swapi.apis.guru',

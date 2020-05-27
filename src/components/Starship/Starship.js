@@ -5,9 +5,11 @@ const BorderedDiv = styled.div`
 border: 2px solid black;
 `
 
-const Starship = ({ name, manufacturers, costInCredits }) => {
+export const Starship = ({ name, manufacturers, costInCredits }) => {
   const [addStarshipInput, setAddStarshipInput] = useState(1)
   const [removeStarshipInput, setRemoveStarshipInput] = useState(1)
+
+  const isStarshipAvailable = Boolean(costInCredits)
 
   const handleStarshipInput = (e, action) => {
     const value = e.target.value
@@ -28,9 +30,9 @@ const Starship = ({ name, manufacturers, costInCredits }) => {
     <BorderedDiv>
       <h3>name: {name}</h3>
       <h3>manufacturers: {manufacturers}</h3>
-      <h3>cost: {costInCredits ? costInCredits : `not available`}</h3>
+      <h3>cost: {isStarshipAvailable ? costInCredits : `not available`}</h3>
 
-      {costInCredits ?
+      {isStarshipAvailable ?
         <>
           <form>
             <label>Add to basket</label>
@@ -50,5 +52,3 @@ const Starship = ({ name, manufacturers, costInCredits }) => {
     </BorderedDiv>
   )
 };
-
-export default Starship;

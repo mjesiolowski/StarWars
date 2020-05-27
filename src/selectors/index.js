@@ -1,1 +1,1 @@
-export { getTest } from './test';
+export { getTotalCount } from './starshipsInBasket';

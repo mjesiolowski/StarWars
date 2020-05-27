@@ -1,7 +1,7 @@
 import { ADD_STARSHIP, UPDATE_STARSHIP, REMOVE_STARSHIP } from '../actions';
 
 
-export const basketReducer = (state = [], action) => {
+export const starshipsInBasketReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_STARSHIP:
       return [
