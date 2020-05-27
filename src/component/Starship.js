@@ -15,11 +15,11 @@ const Starship = ({ name, manufacturers, costInCredits }) => {
       console.log('value < 1, ', action)
     }
 
-    if (action === 'adding') {
+    else if (action === 'adding') {
       setAddStarshipInput(value)
     }
 
-    if (action === 'removing') {
+    else if (action === 'removing') {
       setRemoveStarshipInput(value)
     }
   }
@@ -28,19 +28,25 @@ const Starship = ({ name, manufacturers, costInCredits }) => {
     <BorderedDiv>
       <h3>name: {name}</h3>
       <h3>manufacturers: {manufacturers}</h3>
-      <h3>cost: {costInCredits}</h3>
+      <h3>cost: {costInCredits ? costInCredits : `not available`}</h3>
 
-      <form>
-        <label>Add to basket</label>
-        <input type="number" value={addStarshipInput} onChange={(e) => handleStarshipInput(e, 'adding')} />
-        <button>Add to your basket</button>
-      </form>
+      {costInCredits ?
+        <>
+          <form>
+            <label>Add to basket</label>
+            <input type="number" value={addStarshipInput} onChange={(e) => handleStarshipInput(e, 'adding')} />
+            <button>Add to your basket</button>
+          </form>
 
-      <form>
-        <label>Remove from basket</label>
-        <input type="number" value={removeStarshipInput} onChange={(e) => handleStarshipInput(e, 'removing')} />
-        <button>Remove from your basket</button>
-      </form>
+          <form>
+            <label>Remove from basket</label>
+            <input type="number" value={removeStarshipInput} onChange={(e) => handleStarshipInput(e, 'removing')} />
+            <button>Remove from your basket</button>
+          </form>
+        </>
+        : null
+      }
+
     </BorderedDiv>
   )
 };
