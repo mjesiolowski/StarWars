@@ -10,16 +10,12 @@ export const Starship = ({
   manufacturers,
   costInCredits,
   addStarship,
-  allStarshipsInBasket
+  isStarshipInBasket
 }) => {
   const [starshipsToAddCount, setStarshipsToAddCount] = useState(1)
   const [starshipsToRemoveCount, setStarshipsToRemoveCount] = useState(1)
 
   const isStarshipAvailable = Boolean(costInCredits)
-  const isStarshipInBasket = _.compose(
-    Boolean,
-    _.find({ name })
-  )
 
   const handleStarshipInput = (e, action) => {
     const value = e.target.value
@@ -38,10 +34,12 @@ export const Starship = ({
 
   const handleAddToBasketButton = (e) => {
     e.preventDefault()
-    if (isStarshipInBasket(allStarshipsInBasket)) {
-      return console.log('in the basket')
+
+    if (isStarshipInBasket({ name })) {
+      return console.log('UPDATE')
     }
     addStarship({ name, count: starshipsToAddCount, unitPrice: costInCredits })
+    setStarshipsToRemoveCount(starshipsToAddCount)
   }
 
   return (

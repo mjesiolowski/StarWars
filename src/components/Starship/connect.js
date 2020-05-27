@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Starship } from './Starship'
 import { addStarship, updateStarship } from '../../actions';
-import { getAllStarshipsInBasket } from '../../selectors';
+import { isStarshipInBasket, } from '../../selectors';
 
 
 const mapDispatchToProps = dispatch => ({
@@ -10,6 +10,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(
-  createStructuredSelector({ allStarshipsInBasket: getAllStarshipsInBasket }),
+  createStructuredSelector({
+    isStarshipInBasket,
+  }),
   mapDispatchToProps
 )(Starship);
