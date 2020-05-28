@@ -3,7 +3,8 @@ import {
   CardElement,
   WrapperDivElement,
   FormElement,
-  InputElement
+  InputElement,
+  ButtonElement
 } from '../../styles';
 
 
@@ -26,6 +27,7 @@ export const Starship = ({
   const isStarshipAvailable = Boolean(costInCredits)
   const isRemoveButtonEnabled = Boolean(numberOfStarshipsToRemoveInput)
   const numberOfStarshipsInBasket = parseInt(getStarshipCountInBasket({ name }), 10)
+  const comaSeparatedManufacturers = manufacturers.join(', ')
 
   const handleStarshipInput = (e, action) => {
     const value = e.target.value
@@ -81,7 +83,7 @@ export const Starship = ({
     <CardElement>
       <WrapperDivElement>
         <h3>name: {name}</h3>
-        <h3>manufacturers: {manufacturers}</h3>
+        <h3>manufacturers: {comaSeparatedManufacturers}</h3>
         <h3>cost: {isStarshipAvailable ? costInCredits : `not available`}</h3>
       </WrapperDivElement>
 
@@ -96,9 +98,9 @@ export const Starship = ({
               validationError={addButtonValidationError}
             />
 
-            <button
+            <ButtonElement
               onClick={handleAddToBasketButton}>
-              Add to basket</button>
+              Add to basket</ButtonElement>
           </FormElement>
 
           <FormElement >
@@ -110,10 +112,10 @@ export const Starship = ({
               disabled={!isRemoveButtonEnabled}
             />
 
-            <button
+            <ButtonElement
               onClick={handleRemoveFromBasketButton}
               disabled={!isRemoveButtonEnabled}
-            >Remove from basket</button>
+            >Remove from basket</ButtonElement>
           </FormElement>
 
         </WrapperDivElement>
