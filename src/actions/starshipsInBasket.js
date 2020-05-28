@@ -14,7 +14,6 @@ export const addStarship = ({ name, count, unitPrice }) => ({
   },
 });
 
-
 export const updateStarship = ({ name, count }) => ({
   type: UPDATE_STARSHIP,
   payload: {

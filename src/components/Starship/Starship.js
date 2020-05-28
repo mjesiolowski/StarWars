@@ -7,7 +7,6 @@ import {
   ButtonElement
 } from '../../styles';
 
-
 export const Starship = ({
   name,
   manufacturers,
@@ -22,8 +21,10 @@ export const Starship = ({
 
   const ADDING = 'ADDING'
   const REMOVING = 'REMOVING'
+
   const isStarshipAvailable = Boolean(costInCredits)
   const isRemoveButtonEnabled = Boolean(numberOfStarshipsToRemoveInput)
+
   const numberOfStarshipsInBasket = parseInt(getStarshipCountInBasket({ name }), 10)
   const comaSeparatedManufacturers = manufacturers.join(', ')
 

@@ -19,7 +19,6 @@ export const App = () => {
   if (error) return `Error! ${error.message}`;
 
   const { starships } = data.allStarships;
-  console.log(starships);
 
   return (
     starships.map(({ name, manufacturers, costInCredits }) => <Starship
