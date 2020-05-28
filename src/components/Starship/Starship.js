@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components'
 import {
   CardElement,
   WrapperDivElement,
@@ -13,37 +12,70 @@ export const Starship = ({
   manufacturers,
   costInCredits,
   addStarship,
-  isStarshipInBasket
+  updateStarship,
+  isStarshipInBasket,
+  getStarshipCountInBasket
 }) => {
-  const [starshipsToAddCount, setStarshipsToAddCount] = useState(1)
-  const [starshipsToRemoveCount, setStarshipsToRemoveCount] = useState(1)
+  const [numberOfStarshipsToAddInput, setNumberOfStarshipsToAddInput] = useState(10)
+  const [numberOfStarshipsToRemoveInput, setNumberOfStarshipsToRemoveInput] = useState(0)
+  const [removeButtonValidationError, setRemoveButtonValidationError] = useState(false)
+  const [addButtonValidationError, setAddButtonValidationError] = useState(false)
 
+  const ADDING = 'ADDING'
+  const REMOVING = 'REMOVING'
   const isStarshipAvailable = Boolean(costInCredits)
+  const isRemoveButtonEnabled = Boolean(numberOfStarshipsToRemoveInput)
+  const numberOfStarshipsInBasket = parseInt(getStarshipCountInBasket({ name }), 10)
 
   const handleStarshipInput = (e, action) => {
     const value = e.target.value
-    if (value < 1) {
-      console.log('value < 1, ', action)
+    const validationPattern = /^[0-9\b]+$/;
+
+    if (action === ADDING) {
+      if (value < 1 || !validationPattern.test(value)) {
+        return setAddButtonValidationError(true)
+      }
+
+      setNumberOfStarshipsToAddInput(value)
+      setRemoveButtonValidationError(false)
+      setAddButtonValidationError(false)
     }
 
-    else if (action === 'adding') {
-      setStarshipsToAddCount(value)
-    }
+    else if (action === REMOVING) {
+      if (value < 1 || !validationPattern.test(value) || value > numberOfStarshipsInBasket) {
+        return setRemoveButtonValidationError(true)
+      }
 
-    else if (action === 'removing') {
-      setStarshipsToRemoveCount(value)
+      setNumberOfStarshipsToRemoveInput(value)
+      setRemoveButtonValidationError(false)
     }
   }
 
   const handleAddToBasketButton = (e) => {
     e.preventDefault()
 
+    const maximumNumberOfStarshipsToRemove = parseInt(getStarshipCountInBasket({ name }), 10) + parseInt(numberOfStarshipsToAddInput, 10)
+
     if (isStarshipInBasket({ name })) {
-      return console.log('UPDATE')
+      updateStarship({ name, count: numberOfStarshipsToAddInput })
+      setNumberOfStarshipsToRemoveInput(maximumNumberOfStarshipsToRemove)
     }
-    addStarship({ name, count: starshipsToAddCount, unitPrice: costInCredits })
-    setStarshipsToRemoveCount(starshipsToAddCount)
+    else {
+      addStarship({ name, count: numberOfStarshipsToAddInput, unitPrice: costInCredits })
+      setNumberOfStarshipsToRemoveInput(numberOfStarshipsToAddInput)
+    }
+
+    setRemoveButtonValidationError(false)
+    setAddButtonValidationError(false)
   }
+
+  const handleRemoveFromBasketButton = (e) => {
+    e.preventDefault()
+
+    updateStarship({ name, count: -Math.abs(numberOfStarshipsToRemoveInput) })
+    setNumberOfStarshipsToRemoveInput(numberOfStarshipsInBasket - numberOfStarshipsToRemoveInput)
+  }
+
 
   return (
     <CardElement>
@@ -55,15 +87,35 @@ export const Starship = ({
 
       {isStarshipAvailable ?
         <WrapperDivElement>
+
           <FormElement >
-            <InputElement type="number" value={starshipsToAddCount} onChange={(e) => handleStarshipInput(e, 'adding')} />
-            <button onClick={handleAddToBasketButton}>Add to basket</button>
+            <InputElement
+              type="number"
+              value={numberOfStarshipsToAddInput}
+              onChange={(e) => handleStarshipInput(e, ADDING)}
+              validationError={addButtonValidationError}
+            />
+
+            <button
+              onClick={handleAddToBasketButton}>
+              Add to basket</button>
           </FormElement>
 
           <FormElement >
-            <InputElement type="number" value={starshipsToRemoveCount} onChange={(e) => handleStarshipInput(e, 'removing')} />
-            <button>Remove from basket</button>
+            <InputElement
+              type="number"
+              value={numberOfStarshipsToRemoveInput}
+              onChange={(e) => handleStarshipInput(e, REMOVING)}
+              validationError={removeButtonValidationError}
+              disabled={!isRemoveButtonEnabled}
+            />
+
+            <button
+              onClick={handleRemoveFromBasketButton}
+              disabled={!isRemoveButtonEnabled}
+            >Remove from basket</button>
           </FormElement>
+
         </WrapperDivElement>
         : null
       }

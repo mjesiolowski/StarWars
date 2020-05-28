@@ -7,3 +7,9 @@ export const isStarshipInBasket = (state) => (name) => _.compose(
   _.find(name),
   getAllStarshipsInBasket
 )(state)
+
+export const getStarshipCountInBasket = (state) => (name) => _.compose(
+  _.get('count'),
+  _.find(name),
+  getAllStarshipsInBasket
+)(state)

@@ -12,7 +12,7 @@ export const starshipsInBasketReducer = (state = [], action) => {
     case UPDATE_STARSHIP:
       return state.map((starship) => {
         if (starship.name === action.payload.name) {
-          const updatedCount = starship.count + action.payload.count
+          const updatedCount = parseInt(starship.count, 10) + parseInt(action.payload.count, 10)
           return {
             ...starship,
             count: updatedCount,

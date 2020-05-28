@@ -29,6 +29,7 @@ align-items: center;
 justify-content: center;
 
 flex-basis: 450px;
+min-height: 300px;
 border: 2px solid firebrick;
 margin: 50px 10px 10px 10px;
 padding: 10px;
@@ -42,6 +43,7 @@ export const FormElement = styled.form`
 display: flex;
 `
 export const InputElement = styled.input`
-padding: 5px;
-margin: 25x;
+padding: 7px;
+margin: 2px;
+border: ${props => props.validationError ? `2px solid red` : `2px solid black`};
 `
