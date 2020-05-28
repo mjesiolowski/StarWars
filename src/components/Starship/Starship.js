@@ -19,8 +19,6 @@ export const Starship = ({
 }) => {
   const [numberOfStarshipsToAddInput, setNumberOfStarshipsToAddInput] = useState(10)
   const [numberOfStarshipsToRemoveInput, setNumberOfStarshipsToRemoveInput] = useState(0)
-  const [removeButtonValidationError, setRemoveButtonValidationError] = useState(false)
-  const [addButtonValidationError, setAddButtonValidationError] = useState(false)
 
   const ADDING = 'ADDING'
   const REMOVING = 'REMOVING'
@@ -34,22 +32,28 @@ export const Starship = ({
     const validationPattern = /^[0-9\b]+$/;
 
     if (action === ADDING) {
-      if (value < 1 || !validationPattern.test(value)) {
-        return setAddButtonValidationError(true)
+      if (value < 1) {
+        return setNumberOfStarshipsToAddInput(1)
+      }
+      if (!validationPattern.test(value)) {
+        return setNumberOfStarshipsToAddInput(parseInt(value, 10))
       }
 
       setNumberOfStarshipsToAddInput(value)
-      setRemoveButtonValidationError(false)
-      setAddButtonValidationError(false)
     }
 
     else if (action === REMOVING) {
-      if (value < 1 || !validationPattern.test(value) || value > numberOfStarshipsInBasket) {
-        return setRemoveButtonValidationError(true)
+      if (value < 1) {
+        return setNumberOfStarshipsToRemoveInput(1)
+      }
+      if (!validationPattern.test(value)) {
+        return setNumberOfStarshipsToRemoveInput(parseInt(value, 10))
+      }
+      if (value > numberOfStarshipsInBasket) {
+        return setNumberOfStarshipsToRemoveInput(numberOfStarshipsInBasket)
       }
 
       setNumberOfStarshipsToRemoveInput(value)
-      setRemoveButtonValidationError(false)
     }
   }
 
@@ -66,9 +70,6 @@ export const Starship = ({
       addStarship({ name, count: numberOfStarshipsToAddInput, unitPrice: costInCredits })
       setNumberOfStarshipsToRemoveInput(numberOfStarshipsToAddInput)
     }
-
-    setRemoveButtonValidationError(false)
-    setAddButtonValidationError(false)
   }
 
   const handleRemoveFromBasketButton = (e) => {
@@ -95,7 +96,6 @@ export const Starship = ({
               type="number"
               value={numberOfStarshipsToAddInput}
               onChange={(e) => handleStarshipInput(e, ADDING)}
-              validationError={addButtonValidationError}
             />
 
             <ButtonElement
@@ -108,7 +108,6 @@ export const Starship = ({
               type="number"
               value={numberOfStarshipsToRemoveInput}
               onChange={(e) => handleStarshipInput(e, REMOVING)}
-              validationError={removeButtonValidationError}
               disabled={!isRemoveButtonEnabled}
             />
 

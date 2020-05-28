@@ -48,7 +48,8 @@ display: flex;
 export const InputElement = styled.input`
 padding: 7px;
 margin: 2px;
-border: ${props => props.validationError ? `2px solid red` : `2px solid #293446`};
+/* border: ${props => props.validationError ? `2px solid red` : `2px solid #293446`}; */
+border: 2px solid #293446;
 cursor: ${props => props.disabled ? `not-allowed` : `text`};
 `
 
