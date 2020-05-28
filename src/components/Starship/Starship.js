@@ -13,6 +13,7 @@ export const Starship = ({
   costInCredits,
   addStarship,
   updateStarship,
+  removeStarship,
   isStarshipInBasket,
   getStarshipCountInBasket
 }) => {
@@ -76,10 +77,14 @@ export const Starship = ({
   const handleRemoveFromBasketButton = (e) => {
     e.preventDefault()
 
-    updateStarship({ name, count: -Math.abs(numberOfStarshipsToRemoveInput) })
+    if (numberOfStarshipsInBasket - numberOfStarshipsToRemoveInput === 0) {
+      removeStarship({ name })
+    } else {
+      updateStarship({ name, count: -Math.abs(numberOfStarshipsToRemoveInput) })
+    }
+
     setNumberOfStarshipsToRemoveInput(numberOfStarshipsInBasket - numberOfStarshipsToRemoveInput)
   }
-
 
   return (
     <CardElement>

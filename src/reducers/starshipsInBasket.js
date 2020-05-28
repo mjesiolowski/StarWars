@@ -22,7 +22,7 @@ export const starshipsInBasketReducer = (state = [], action) => {
       });
 
     case REMOVE_STARSHIP:
-      return state.filter(starship => starship.name === action.payload.name)
+      return state.filter(starship => starship.name !== action.payload.name)
 
     default:
       return state;

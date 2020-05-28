@@ -10,6 +10,7 @@ import {
   ContainerElement,
 } from './styles';
 import configureStore from './store/configureStore';
+import { addStarship, updateStarship } from './actions';
 import { App, Basket } from './components';
 
 const store = configureStore();
