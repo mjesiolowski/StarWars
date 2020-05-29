@@ -1,4 +1,4 @@
-export const getTotalCount = ({ starshipsInBasket }) => _.sumBy((o) => o.count, starshipsInBasket)
+export const getTotalCount = ({ starshipsInBasket }) => _.sumBy((starship) => parseInt(starship.count, 10), starshipsInBasket)
 
 export const getAllStarshipsInBasket = state => state.starshipsInBasket
 

@@ -62,7 +62,7 @@ export const Starship = ({
   const handleAddToBasketButton = (e) => {
     e.preventDefault()
 
-    const maximumNumberOfStarshipsToRemove = parseInt(getStarshipCountInBasket({ name }), 10) + parseInt(numberOfStarshipsToAddInput, 10)
+    const maximumNumberOfStarshipsToRemove = numberOfStarshipsInBasket + numberOfStarshipsToAddInput
 
     if (isStarshipInBasket({ name })) {
       updateStarship({ name, count: numberOfStarshipsToAddInput })
@@ -103,7 +103,6 @@ export const Starship = ({
               value={numberOfStarshipsToAddInput}
               onChange={(e) => handleStarshipInput(e, ADDING)}
             />
-
             <ButtonElement
               onClick={handleAddToBasketButton}>
               Add to basket</ButtonElement>
@@ -116,7 +115,6 @@ export const Starship = ({
               onChange={(e) => handleStarshipInput(e, REMOVING)}
               disabled={!isRemoveButtonEnabled}
             />
-
             <ButtonElement
               onClick={handleRemoveFromBasketButton}
               disabled={!isRemoveButtonEnabled}
@@ -126,7 +124,6 @@ export const Starship = ({
         </WrapperDivElement>
         : null
       }
-
     </CardElement>
   )
 };
