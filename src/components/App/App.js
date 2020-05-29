@@ -13,8 +13,8 @@ const GET_STARSHIPS = gql` {
   }
 }`;
 
-const LOADING = 'Loading...'
-const ERROR = 'Error: '
+const LOADING = 'Loading...';
+const ERROR = 'Error: ';
 
 export const App = () => {
   const { loading, error, data } = useQuery(GET_STARSHIPS);

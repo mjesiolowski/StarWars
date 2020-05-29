@@ -10,7 +10,7 @@ export const addStarship = ({ name, count, unitPrice }) => ({
     name,
     count,
     unitPrice,
-    totalPrice: unitPrice * count
+    totalPrice: unitPrice * count,
   },
 });
 
@@ -28,4 +28,3 @@ export const removeStarship = ({ name }) => ({
     name,
   },
 });
-

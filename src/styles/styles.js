@@ -24,7 +24,7 @@ text-align: center;
 position: fixed;
 background-color: #293446;
 border-bottom: 2px solid #a24952;
-`
+`;
 
 export const CardElement = styled.div`
 display: flex;
@@ -36,7 +36,7 @@ min-height: 300px;
 border: 2px solid #a24952;
 margin: 50px 10px 10px 10px;
 padding: 10px;
-`
+`;
 
 export const WrapperDivElement = styled.div`
 text-align: center;
@@ -44,20 +44,20 @@ text-align: center;
 
 export const FormElement = styled.form`
 display: flex;
-`
+`;
 export const InputElement = styled.input`
 padding: 7px;
 margin: 2px;
 border: 2px solid #293446;
-cursor: ${props => props.disabled ? `not-allowed` : `text`};
-`
+cursor: ${(props) => (props.disabled ? 'not-allowed' : 'text')};
+`;
 
 export const ButtonElement = styled.button`
 padding: 7px;
 margin: 2px;
 border: 2px solid #293446;
-cursor: ${props => props.disabled ? `not-allowed` : `pointer`};
+cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 width: 100%;
-background-color: ${props => props.disabled ? `#738caa` : `#689fde`};;
+background-color: ${(props) => (props.disabled ? '#738caa' : '#689fde')};;
 color: #ebecec;
-`
+`;

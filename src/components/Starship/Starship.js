@@ -4,7 +4,7 @@ import {
   WrapperDivElement,
   FormElement,
   InputElement,
-  ButtonElement
+  ButtonElement,
 } from '../../styles';
 
 export const Starship = ({
@@ -15,87 +15,84 @@ export const Starship = ({
   updateStarship,
   removeStarship,
   isStarshipInBasket,
-  getStarshipCountInBasket
+  getStarshipCountInBasket,
 }) => {
-  const [numberOfStarshipsToAddInput, setNumberOfStarshipsToAddInput] = useState(10)
-  const [numberOfStarshipsToRemoveInput, setNumberOfStarshipsToRemoveInput] = useState(0)
+  const [numberOfStarshipsToAddInput, setNumberOfStarshipsToAddInput] = useState(10);
+  const [numberOfStarshipsToRemoveInput, setNumberOfStarshipsToRemoveInput] = useState(0);
 
-  const ADDING = 'ADDING'
-  const REMOVING = 'REMOVING'
+  const ADDING = 'ADDING';
+  const REMOVING = 'REMOVING';
 
-  const isStarshipAvailable = Boolean(costInCredits)
-  const isRemoveButtonEnabled = Boolean(numberOfStarshipsToRemoveInput)
+  const isStarshipAvailable = Boolean(costInCredits);
+  const isRemoveButtonEnabled = Boolean(numberOfStarshipsToRemoveInput);
 
-  const numberOfStarshipsInBasket = parseInt(getStarshipCountInBasket({ name }), 10)
-  const comaSeparatedManufacturers = manufacturers.join(', ')
+  const numberOfStarshipsInBasket = parseInt(getStarshipCountInBasket({ name }), 10);
+  const comaSeparatedManufacturers = manufacturers.join(', ');
 
   const handleStarshipInput = (e, action) => {
-    const value = e.target.value
+    const { value } = e.target;
     const validationPattern = /^[0-9\b]+$/;
 
     if (action === ADDING) {
       if (value < 1) {
-        return setNumberOfStarshipsToAddInput(1)
+        return setNumberOfStarshipsToAddInput(1);
       }
       if (!validationPattern.test(value)) {
-        return setNumberOfStarshipsToAddInput(parseInt(value, 10))
+        return setNumberOfStarshipsToAddInput(parseInt(value, 10));
       }
 
-      setNumberOfStarshipsToAddInput(value)
-    }
-
-    else if (action === REMOVING) {
+      setNumberOfStarshipsToAddInput(value);
+    } else if (action === REMOVING) {
       if (value < 1) {
-        return setNumberOfStarshipsToRemoveInput(1)
+        return setNumberOfStarshipsToRemoveInput(1);
       }
       if (!validationPattern.test(value)) {
-        return setNumberOfStarshipsToRemoveInput(parseInt(value, 10))
+        return setNumberOfStarshipsToRemoveInput(parseInt(value, 10));
       }
       if (value > numberOfStarshipsInBasket) {
-        return setNumberOfStarshipsToRemoveInput(numberOfStarshipsInBasket)
+        return setNumberOfStarshipsToRemoveInput(numberOfStarshipsInBasket);
       }
 
-      setNumberOfStarshipsToRemoveInput(value)
+      setNumberOfStarshipsToRemoveInput(value);
     }
-  }
+  };
 
   const handleAddToBasketButton = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const maximumNumberOfStarshipsToRemove = numberOfStarshipsInBasket + numberOfStarshipsToAddInput
+    const maximumNumberOfStarshipsToRemove = numberOfStarshipsInBasket + numberOfStarshipsToAddInput;
 
     if (isStarshipInBasket({ name })) {
-      updateStarship({ name, count: numberOfStarshipsToAddInput })
-      setNumberOfStarshipsToRemoveInput(maximumNumberOfStarshipsToRemove)
+      updateStarship({ name, count: numberOfStarshipsToAddInput });
+      setNumberOfStarshipsToRemoveInput(maximumNumberOfStarshipsToRemove);
+    } else {
+      addStarship({ name, count: numberOfStarshipsToAddInput, unitPrice: costInCredits });
+      setNumberOfStarshipsToRemoveInput(numberOfStarshipsToAddInput);
     }
-    else {
-      addStarship({ name, count: numberOfStarshipsToAddInput, unitPrice: costInCredits })
-      setNumberOfStarshipsToRemoveInput(numberOfStarshipsToAddInput)
-    }
-  }
+  };
 
   const handleRemoveFromBasketButton = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (numberOfStarshipsInBasket - numberOfStarshipsToRemoveInput === 0) {
-      removeStarship({ name })
+      removeStarship({ name });
     } else {
-      updateStarship({ name, count: -Math.abs(numberOfStarshipsToRemoveInput) })
+      updateStarship({ name, count: -Math.abs(numberOfStarshipsToRemoveInput) });
     }
 
-    setNumberOfStarshipsToRemoveInput(numberOfStarshipsInBasket - numberOfStarshipsToRemoveInput)
-  }
+    setNumberOfStarshipsToRemoveInput(numberOfStarshipsInBasket - numberOfStarshipsToRemoveInput);
+  };
 
   return (
     <CardElement>
       <WrapperDivElement>
         <h3>name: {name}</h3>
         <h3>manufacturers: {comaSeparatedManufacturers}</h3>
-        <h3>cost: {isStarshipAvailable ? costInCredits : `not available`}</h3>
+        <h3>cost: {isStarshipAvailable ? costInCredits : 'not available'}</h3>
       </WrapperDivElement>
 
-      {isStarshipAvailable ?
-        <WrapperDivElement>
+      {isStarshipAvailable
+        ? <WrapperDivElement>
 
           <FormElement >
             <InputElement
@@ -125,5 +122,5 @@ export const Starship = ({
         : null
       }
     </CardElement>
-  )
+  );
 };

@@ -5,14 +5,17 @@ module.exports = {
   "env": {
     "browser": true
   },
+  "globals": { "_": true },
   "rules": {
-    "treatUndefinedAsUnspecified": true,
     "linebreak-style": 0,
     "global-require": 0,
     "eslint linebreak-style": [0, "error", "windows"],
     "import/prefer-default-export": "off",
     "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error"
+    "react/jsx-uses-vars": "error",
+    "max-len": "off",
+    "no-underscore-dangle": "off",
+    "consistent-return": "off"
   },
   "overrides": [
     {

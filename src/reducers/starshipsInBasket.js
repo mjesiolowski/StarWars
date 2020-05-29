@@ -11,18 +11,18 @@ export const starshipsInBasketReducer = (state = [], action) => {
     case UPDATE_STARSHIP:
       return state.map((starship) => {
         if (starship.name === action.payload.name) {
-          const updatedCount = parseInt(starship.count, 10) + parseInt(action.payload.count, 10)
+          const updatedCount = parseInt(starship.count, 10) + parseInt(action.payload.count, 10);
           return {
             ...starship,
             count: updatedCount,
-            totalPrice: updatedCount * starship.unitPrice
+            totalPrice: updatedCount * starship.unitPrice,
           };
         }
         return starship;
       });
 
     case REMOVE_STARSHIP:
-      return state.filter(starship => starship.name !== action.payload.name)
+      return state.filter((starship) => starship.name !== action.payload.name);
 
     default:
       return state;
