@@ -60,7 +60,7 @@ export const Starship = ({
   const handleAddToBasketButton = (e) => {
     e.preventDefault();
 
-    const maximumNumberOfStarshipsToRemove = numberOfStarshipsInBasket + numberOfStarshipsToAddInput;
+    const maximumNumberOfStarshipsToRemove = parseInt(getStarshipCountInBasket({ name }), 10) + parseInt(numberOfStarshipsToAddInput, 10);
 
     if (isStarshipInBasket({ name })) {
       updateStarship({ name, count: numberOfStarshipsToAddInput });
